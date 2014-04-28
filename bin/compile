@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+title() {
+  echo "-----> $*"
+}
+
+subtitle() {
+  echo "       $*"
+}
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+unset ATLAS BLAS LAPACK LD_LIBRARY_PATH PATH PYTHONPATH
+export ATLAS="$BUILD_DIR/.heroku/vendor/lib/atlas-base/libatlas.a"
+export BLAS="$BUILD_DIR/.heroku/vendor/lib/atlas-base/atlas/libblas.a"
+export LAPACK="$BUILD_DIR/.heroku/vendor/lib/atlas-base/atlas/liblapack.a"
+export LD_LIBRARY_PATH="$BUILD_DIR/.heroku/python/lib/:$BUILD_DIR/.heroku/vendor/lib:$BUILD_DIR/.heroku/vendor/lib/atlas-base:$BUILD_DIR/.heroku/vendor/lib/atlas-base/atlas"
+export PATH="$BUILD_DIR/.heroku/python/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+export PYTHONPATH="$BUILD_DIR/.heroku/python/lib/python2.7/site-packages/:$BUILD_DIR/.heroku/vendor/lib/python2.7/site-packages/"
+
+# Setup environment
+mkdir -p $CACHE_DIR
+title "Generating environment"
+if [ ! -f $CACHE_DIR/env.tar.gz ]; then
+	subtitle "Fetching environment"
+	curl -s -L "https://doc-0c-2g-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/r26fvi29l8a5oj9hia77umqi5g98o9he/1398600000000/17245153067249858411/*/0B0OZMT141UO7czNZM3ZpWmwxVEU?h=16653014193614665626&e=download" > $CACHE_DIR/env.tar.gz
+fi
+subtitle "Unpacking environment"
+tar -xz $CACHE_DIR/env.tar.gz -C $BUILD_DIR
+
+
+# installing application dependencies
+if [ -f $BUILD_DIR/requirements.txt ]; then
+	title "Found requirements.txt, installing dependencies using pip"
+	$BUILD_DIR/.heroku/python/bin/pip install -r requirements.txt --exists-action=w --src=./.heroku/src --allow-all-external
+fi
+
+# creating env variables
+title "Creating environment variables."
+mkdir -p $BUILD_DIR/.profile.d
+cat <<EOF >$BUILD_DIR/.profile.d/5251124.sh
+export ATLAS="\$HOME/.heroku/vendor/lib/atlas-base/libatlas.a"
+export BLAS="\$HOME/.heroku/vendor/lib/atlas-base/atlas/libblas.a"
+export LAPACK="\$HOME/.heroku/vendor/lib/atlas-base/atlas/liblapack.a"
+export LD_LIBRARY_PATH="\$HOME/.heroku/python/lib/:\$HOME/.heroku/vendor/lib:\$HOME/.heroku/vendor/lib/atlas-base:\$HOME/.heroku/vendor/lib/atlas-base/atlas:\$LD_LIBRARY_PATH"
+export PATH="\$HOME/.heroku/python/bin:\$PATH"
+export PYTHONPATH="\$HOME/.heroku/python/lib/python2.7/site-packages/:\$HOME/.heroku/vendor/lib/python2.7/site-packages/"
+EOF
+
+title "Buildpack installed."
