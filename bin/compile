@@ -11,6 +11,12 @@ subtitle() {
 BUILD_DIR=$1
 CACHE_DIR=$2
 
+APP_DIR="/app"
+deep-mv $BUILD_DIR $APP_DIR
+ORIG_BUILD_DIR=$BUILD_DIR
+BUILD_DIR=$APP_DIR
+cd $BUILD_DIR
+
 unset ATLAS BLAS LAPACK LD_LIBRARY_PATH PATH PYTHONPATH
 export ATLAS="$BUILD_DIR/.heroku/vendor/lib/atlas-base/libatlas.a"
 export BLAS="$BUILD_DIR/.heroku/vendor/lib/atlas-base/atlas/libblas.a"
@@ -47,5 +53,7 @@ export LD_LIBRARY_PATH="\$HOME/.heroku/python/lib/:\$HOME/.heroku/vendor/lib:\$H
 export PATH="\$HOME/.heroku/python/bin:\$PATH"
 export PYTHONPATH="\$HOME/.heroku/python/lib/python2.7/site-packages/:\$HOME/.heroku/vendor/lib/python2.7/site-packages/"
 EOF
+
+deep-mv $BUILD_DIR $ORIG_BUILD_DIR
 
 title "Buildpack installed."
