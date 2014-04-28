@@ -10,6 +10,14 @@ subtitle() {
 
 # Taken from python heroku buildpack
 ###################################
+shopt -s extglob
+
+if [ $(uname) == Darwin ]; then
+    sed() { command sed -l "$@"; }
+else
+    sed() { command sed -u "$@"; }
+fi
+
 # Does some serious copying.
 deep-cp() {
   declare source="$1" target="$2"
@@ -46,7 +54,7 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 
 APP_DIR="/app"
-mv $BUILD_DIR $APP_DIR
+deep-mv $BUILD_DIR $APP_DIR
 ORIG_BUILD_DIR=$BUILD_DIR
 BUILD_DIR=$APP_DIR
 cd $BUILD_DIR
