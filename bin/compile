@@ -23,10 +23,10 @@ export PYTHONPATH="$BUILD_DIR/.heroku/python/lib/python2.7/site-packages/:$BUILD
 mkdir -p $CACHE_DIR
 title "Generating environment"
 if [ ! -f $CACHE_DIR/env.tar.gz ]; then
-	subtitle "Fetching environment"
-	curl -s -L "https://doc-0c-2g-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/r26fvi29l8a5oj9hia77umqi5g98o9he/1398600000000/17245153067249858411/*/0B0OZMT141UO7czNZM3ZpWmwxVEU?h=16653014193614665626&e=download" > $CACHE_DIR/env.tar.gz
+	subtitle "Fetching..."
+	curl -s -L "https://db.tt/62v7L8g8" > $CACHE_DIR/env.tar.gz
 fi
-subtitle "Unpacking environment"
+subtitle "Unpacking..."
 tar -xz $CACHE_DIR/env.tar.gz -C $BUILD_DIR
 
 
