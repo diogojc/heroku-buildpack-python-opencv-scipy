@@ -27,7 +27,7 @@ if [ ! -f $CACHE_DIR/env.tar.gz ]; then
 	curl -s -L "https://db.tt/62v7L8g8" > $CACHE_DIR/env.tar.gz
 fi
 subtitle "Unpacking..."
-tar -xz $CACHE_DIR/env.tar.gz -C $BUILD_DIR
+tar -xzf $CACHE_DIR/env.tar.gz -C $BUILD_DIR
 
 
 # installing application dependencies
