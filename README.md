@@ -21,3 +21,4 @@ This includes the following:
 - Opencv-3.0.0 (with python support)
 - Numpy-1.9.2
 - Scipy-0.16.0
+- Matplotlib-1.4.3

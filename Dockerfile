@@ -21,7 +21,6 @@ WORKDIR /app/.heroku
 RUN rm -rf Python-2.7.10
 
 
-
 # Install latest setup-tools and pip
 RUN curl -s -L https://bootstrap.pypa.io/get-pip.py > get-pip.py
 RUN python get-pip.py
@@ -32,12 +31,10 @@ RUN rm get-pip.py
 RUN pip install numpy
 
 
-# install scipy and dependencies
-RUN curl -s -L "https://db.tt/38ZdLUoQ" > env.tar.gz
-RUN tar zxvf env.tar.gz
-RUN rm env.tar.gz
-RUN cp -avr .heroku/vendor/lib/atlas-base/ vendor/lib/atlas-base
-RUN rm -rf .heroku
+# install scipy
+RUN curl -s -L https://db.tt/osV4nSh0 > npscipy.tar.gz
+RUN tar zxvf npscipy.tar.gz
+RUN rm npscipy.tar.gz
 ENV ATLAS /app/.heroku/vendor/lib/atlas-base/libatlas.a
 ENV BLAS /app/.heroku/vendor/lib/atlas-base/atlas/libblas.a
 ENV LAPACK /app/.heroku/vendor/lib/atlas-base/atlas/liblapack.a

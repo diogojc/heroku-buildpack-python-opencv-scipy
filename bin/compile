@@ -72,7 +72,7 @@ mkdir -p $CACHE_DIR
 title "Generating environment"
 if [ ! -f $CACHE_DIR/env.tar.gz ]; then
 	subtitle "Fetching..."
-	curl -s -L "https://db.tt/liDL0oZc" > $CACHE_DIR/env.tar.gz
+	curl -s -L "https://db.tt/xurahIeK" > $CACHE_DIR/env.tar.gz
 fi
 subtitle "Unpacking..."
 tar -xzf $CACHE_DIR/env.tar.gz -C $BUILD_DIR
