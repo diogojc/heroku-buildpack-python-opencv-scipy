@@ -11,13 +11,13 @@ OpenCV, Numpy or Scipy.
 - Compiling things in a one-off dyno is slow.
 
 ## How
-A complete environment was created using a docker container running ubuntu 10.04.
+A complete environment was created using the Dockerfile file based on the heroku cedar stack v14.
 
 This buildpack will download that environment and place it in your /app/.heroku folder.
 This includes the following:
-- Python-2.7.6
-- Pip-1.5.4
-- Setuptools-3.4.4
-- Opencv-2.4.9 (with python support)
-- Numpy-1.8.1
-- Scipy-0.13.3
+- Python-2.7.10
+- Pip-7.1.1
+- Setuptools-18.2
+- Opencv-3.0.0 (with python support)
+- Numpy-1.9.2
+- Scipy-0.16.0
