@@ -16,9 +16,7 @@ A complete environment was created using the Dockerfile file based on the heroku
 This buildpack will download that environment and place it in your /app/.heroku folder.
 This includes the following:
 - Python-2.7.10
-- Pip-7.1.1
-- Setuptools-18.2
-- Opencv-3.0.0 (with python support)
-- Numpy-1.9.2
-- Scipy-0.16.0
-- Matplotlib-1.4.3
+- Opencv-2.4.11 (with python support)
+- Numpy-1.11.1
+- Scipy-0.18.0
+- Matplotlib-1.5.3

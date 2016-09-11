@@ -60,10 +60,10 @@ BUILD_DIR=$APP_DIR
 cd $BUILD_DIR
 
 unset ATLAS BLAS LAPACK LD_LIBRARY_PATH PATH PYTHONPATH
-export ATLAS="$BUILD_DIR/.heroku/vendor/lib/atlas-base/libatlas.a"
-export BLAS="$BUILD_DIR/.heroku/vendor/lib/atlas-base/atlas/libblas.a"
-export LAPACK="$BUILD_DIR/.heroku/vendor/lib/atlas-base/atlas/liblapack.a"
-export LD_LIBRARY_PATH="$BUILD_DIR/.heroku/vendor/lib:$BUILD_DIR/.heroku/vendor/lib/atlas-base:$BUILD_DIR/.heroku/vendor/lib/atlas-base/atlas"
+export ATLAS="$BUILD_DIR/.heroku/vendor/lib/libatlas.a"
+export BLAS="$BUILD_DIR/.heroku/vendor/lib/libcblas.a"
+export LAPACK="$BUILD_DIR/.heroku/vendor/lib/liblapack.a"
+export LD_LIBRARY_PATH="$BUILD_DIR/.heroku/vendor/lib"
 export PATH="$BUILD_DIR/.heroku/vendor/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 export PYTHONPATH="$BUILD_DIR/.heroku/vendor/lib/python2.7/site-packages/"
 
@@ -72,10 +72,10 @@ mkdir -p $CACHE_DIR
 title "Generating environment"
 if [ ! -f $CACHE_DIR/env.tar.gz ]; then
 	subtitle "Fetching..."
-	curl -s -L "https://db.tt/xurahIeK" > $CACHE_DIR/env.tar.gz
+	curl -s -L "https://dl.dropboxusercontent.com/u/17040412/vendor.tar.bz2" > $CACHE_DIR/vendor.tar.bz2
 fi
 subtitle "Unpacking..."
-tar -xzf $CACHE_DIR/env.tar.gz -C $BUILD_DIR
+tar -xvf $CACHE_DIR/vendor.tar.bz2 -C $BUILD_DIR
 
 
 # installing application dependencies
@@ -88,10 +88,10 @@ fi
 title "Creating environment variables."
 mkdir -p $BUILD_DIR/.profile.d
 cat <<EOF >$BUILD_DIR/.profile.d/5251124.sh
-export ATLAS="\$HOME/.heroku/vendor/lib/atlas-base/libatlas.a"
-export BLAS="\$HOME/.heroku/vendor/lib/atlas-base/atlas/libblas.a"
-export LAPACK="\$HOME/.heroku/vendor/lib/atlas-base/atlas/liblapack.a"
-export LD_LIBRARY_PATH="\$HOME/.heroku/vendor/lib:\$HOME/.heroku/vendor/lib/atlas-base:\$HOME/.heroku/vendor/lib/atlas-base/atlas:\$LD_LIBRARY_PATH"
+export ATLAS="\$HOME/.heroku/vendor/lib/libatlas.a"
+export BLAS="\$HOME/.heroku/vendor/lib/libcblas.a"
+export LAPACK="\$HOME/.heroku/vendor/lib/liblapack.a"
+export LD_LIBRARY_PATH="\$HOME/.heroku/vendor/lib:\$LD_LIBRARY_PATH"
 export PATH="\$HOME/.heroku/vendor/bin:\$PATH"
 export PYTHONPATH="\$HOME/.heroku/vendor/lib/python2.7/site-packages/"
 EOF
