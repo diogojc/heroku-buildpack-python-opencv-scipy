@@ -1,4 +1,4 @@
-# Heroku buildpack with Python, OpenCV, Numpy and SciPy
+# Heroku cedar14 stack buildpack with Python, OpenCV, Numpy, SciPy and Matplotlib
 
 ## What
 This buildpack provides a self-contained environment for python applications that need:
