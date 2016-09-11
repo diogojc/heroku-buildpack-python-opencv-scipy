@@ -101,6 +101,6 @@ RUN rm -rf opencv-2.4.11
 
 # Create vendor package
 WORKDIR /app/
-RUN tar cvfj /vendor.tar.bz2 /app/
+RUN tar cvfj /vendor.tar.bz2 .
 VOLUME /vendoring
 CMD cp /vendor.tar.bz2 /vendoring
