@@ -70,7 +70,7 @@ export PYTHONPATH="$BUILD_DIR/.heroku/vendor/lib/python2.7/site-packages/"
 # Setup environment
 mkdir -p $CACHE_DIR
 title "Generating environment"
-if [ ! -f $CACHE_DIR/env.tar.gz ]; then
+if [ ! -f $CACHE_DIR/vendor.tar.bz2 ]; then
 	subtitle "Fetching..."
 	curl -s -L "https://dl.dropboxusercontent.com/u/17040412/vendor.tar.bz2" > $CACHE_DIR/vendor.tar.bz2
 fi
